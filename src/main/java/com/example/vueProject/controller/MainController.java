@@ -66,6 +66,7 @@ public class MainController {
 			  return ResponseEntity.status(402)
 					  .body(new AuthResponse(402,"ID or password is Null",null,null));
 		  }
+		  
 		  Member member = memberservice.login(request.getUsername(), request.getPassword());
 		  System.out.println(request.getUsername());
 		  System.out.println(request.getPassword());
@@ -78,8 +79,9 @@ public class MainController {
 	       String refreshToken = jwtmaker.generateRefreshToken(member);
 	       
 	       memberservice.updateRefreshToken(member.getId(), refreshToken);
-		
-		  AuthResponse authResponse = new AuthResponse(2000, "로그인 성공",accessToken,refreshToken);
+	       
+	       
+		  AuthResponse authResponse = new AuthResponse(2000, "로그인 성공",accessToken,refreshToken,member.getNickname());
 		  System.out.println(accessToken);
 		  System.out.println(refreshToken);
 		  return ResponseEntity.ok(authResponse);
