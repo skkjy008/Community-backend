@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/boards")
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8080")
 public class BoardController {
     private final PostService postService;
     
@@ -38,6 +38,6 @@ public class BoardController {
     @PostMapping("/create")
     public MasterRes<PostDto> createPost(@RequestBody PostDto postDto) {
         PostDto createdPost = postService.createPost(postDto);
-        return new MasterRes<>(200, "게시글 생성 성공", createdPost);
+        return new MasterRes<>(2002, "게시글 생성 성공", createdPost);
     }
 }
