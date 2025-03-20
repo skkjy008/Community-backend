@@ -5,6 +5,7 @@ import com.example.vueProject.dto.PostDto;
 import com.example.vueProject.entity.Post;
 import com.example.vueProject.service.PostService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,8 @@ import java.util.List;
 @RequestMapping("/api/boards")
 @CrossOrigin(origins = "http://localhost:8080")
 public class BoardController {
+	
+	@Autowired
     private final PostService postService;
     
     public BoardController(PostService postService) {
@@ -40,4 +43,16 @@ public class BoardController {
         PostDto createdPost = postService.createPost(postDto);
         return new MasterRes<>(2002, "게시글 생성 성공", createdPost);
     }
+    
+    
+    @GetMapping("/{id}")
+    public MasterRes<PostDto> getPost(@PathVariable("id") Long id)
+    {
+    	PostDto post = postService.getPostById(id);
+    	return new MasterRes<>(200, "게시글 조회 성공",post);
+    	
+    }
+    
+    
+    
 }

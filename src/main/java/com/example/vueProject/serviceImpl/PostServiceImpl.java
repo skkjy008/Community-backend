@@ -62,4 +62,13 @@ public class PostServiceImpl implements PostService {
         Post saved = postRepository.save(post);
         return convertToDto(saved);
     }
+
+	@Override
+	public PostDto getPostById(Long id) {
+		 return postRepository.findById(id)
+		            .map(this::convertToDto)
+		            .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id: " + id));
+	}
+
+
 }

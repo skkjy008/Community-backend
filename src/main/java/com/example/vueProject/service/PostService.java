@@ -7,4 +7,5 @@ public interface PostService {
     List<PostDto> getAllPosts();
     List<PostDto> searchPosts(String query);
     PostDto createPost(PostDto postDto);
+	PostDto getPostById(Long id);
 }
