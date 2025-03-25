@@ -43,7 +43,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostDto> getAllPosts() {
         return postRepository.findAll().stream()
-                .map(this::convertToDto)
+                .map(post->this.convertToDto(post))
                 .collect(Collectors.toList());
     }
     
@@ -51,7 +51,7 @@ public class PostServiceImpl implements PostService {
     public List<PostDto> searchPosts(String query) {
         List<Post> posts = postRepository.findByTitleContainingOrContentContainingOrWriterContaining(query, query, query);
         return posts.stream()
-                    .map(this::convertToDto)
+                    .map(post ->this.convertToDto(post))
                     .collect(Collectors.toList());
     }
     
@@ -66,7 +66,7 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public PostDto getPostById(Long id) {
 		 return postRepository.findById(id)
-		            .map(this::convertToDto)
+		            .map(post -> this.convertToDto(post))
 		            .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id: " + id));
 	}
 
