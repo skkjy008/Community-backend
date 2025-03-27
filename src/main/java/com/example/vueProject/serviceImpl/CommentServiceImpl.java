@@ -102,4 +102,30 @@ public class CommentServiceImpl implements CommentService{
 				.collect(Collectors.toList());
 	}
 
+
+	@Override
+	public void deleteComment(Long commentId) {
+		
+		if(!commentrepository.existsById(commentId))
+		{
+			throw new IllegalArgumentException("해당 댓글이 존재하지 않습니다. id:"+commentId);
+		}
+		
+		commentrepository.deleteById(commentId);
+		
+	}
+
+
+	@Override
+	public CommentDto updateComment(Long commentId, CommentDto commentDto) {
+		
+		Comment comment = commentrepository.findById(commentId)
+				.orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다. id: " + commentId));
+		comment.setContent(commentDto.getContent());
+		
+		Comment updated = commentrepository.save(comment);
+		return convertToDto(updated);
+		
+	}
+
 }

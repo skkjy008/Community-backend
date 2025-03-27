@@ -46,4 +46,24 @@ public class CommentController {
         CommentDto created = commentService.createComment(commentDto);
         return ResponseEntity.ok(new MasterRes<>(200, "답글 생성 성공", created));
     }
+    
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<MasterRes> deleteComment(@PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId)
+    {
+    	commentService.deleteComment(commentId);
+    	return ResponseEntity.ok(new MasterRes<>(200, "댓글 삭제 완료"));
+    }
+    
+    
+    @PutMapping("/{commentId}")
+    public ResponseEntity<MasterRes<CommentDto>> updateComment(
+    		@PathVariable("postId") Long postId,
+    		@PathVariable("commentId") Long commentId,
+    		@RequestBody CommentDto commentDto){
+    	
+    	commentDto.setPostId(postId);
+    	CommentDto updated = commentService.updateComment(commentId,commentDto);
+    	return ResponseEntity.ok(new MasterRes<>(200, "댓글 수정 성공",updated));
+    }
+    
 }
