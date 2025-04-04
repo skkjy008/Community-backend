@@ -70,5 +70,13 @@ public class PostServiceImpl implements PostService {
 		            .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id: " + id));
 	}
 
+	@Override
+	public List<PostDto> getPostByWriter(String user) {
+		List<Post> posts = postRepository.findByWriter(user);
+		return posts.stream()
+				.map(post -> this.convertToDto(post))
+				.collect(Collectors.toList());
+	}
+
 
 }

@@ -11,4 +11,5 @@ public interface PostService {
     List<PostDto> searchPosts(String query);
     PostDto createPost(PostDto postDto);
 	PostDto getPostById(Long id);
+	List<PostDto> getPostByWriter(String user);
 }
