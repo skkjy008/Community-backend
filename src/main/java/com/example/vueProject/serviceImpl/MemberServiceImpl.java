@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.vueProject.dto.CommentDto;
+import com.example.vueProject.dto.MemberDto;
 import com.example.vueProject.dto.RegisterRequest;
+import com.example.vueProject.entity.Comment;
 import com.example.vueProject.entity.Member;
+import com.example.vueProject.entity.Post;
 import com.example.vueProject.repository.MemberRepository;
 import com.example.vueProject.service.MemberService;
 
@@ -19,6 +23,29 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	private MemberDto convertToDto(Member member)
+	{
+		MemberDto dto = new MemberDto();
+		dto.setNickname(member.getNickname());
+		dto.setPassword(member.getPassword());
+		dto.setUsername(member.getUsername());
+		dto.setEmail(member.getEmail());
+		
+		return  dto;
+	}
+	
+	private Member convertToEntiry(MemberDto dto)
+	{
+		Member member = new Member();
+		member.setNickname(dto.getNickname());
+		member.setUsername(dto.getUsername());
+		member.setEmail(dto.getEmail());
+		member.setPassword(dto.getPassword());
+   
+		return member;
+		
+	}
 
 	@Override
 	public Member registerMember(RegisterRequest request) {
@@ -65,8 +92,20 @@ public class MemberServiceImpl implements MemberService{
 }
 
 	@Override
-	public Member findByUsername(String username) {
+	public MemberDto getUserByNickname(String username) {
 		
+		Member member = memberrepository.findByUsername(username);
+		
+		if(member==null)
+		{
+			throw new IllegalArgumentException("해당 회원이 존재하지 않습니다. username"+username);
+		}
+		
+		 return this.convertToDto(member);
+	}
+
+	@Override
+	public Member findByUsername(String username) {
 		return memberrepository.findByUsername(username);
 	}
 	

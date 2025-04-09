@@ -3,6 +3,7 @@ package com.example.vueProject.service;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import com.example.vueProject.dto.MemberDto;
 import com.example.vueProject.dto.RegisterRequest;
 import com.example.vueProject.entity.Member;
 
@@ -15,5 +16,6 @@ public interface MemberService {
 	Member login(String username, String password);
 	void updateRefreshToken(Long memberId, String refreshToken);
 	Member findByUsername(String username);
+	MemberDto getUserByNickname(String username);
 
 }
