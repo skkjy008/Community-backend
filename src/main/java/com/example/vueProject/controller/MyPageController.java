@@ -7,6 +7,8 @@ import org.springframework.security.config.authentication.UserServiceBeanDefinit
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,15 +41,22 @@ public class MyPageController {
   public MasterRes<MyPageDto> getPost(@PathVariable("user") String user)
   {
 
-	  MemberDto memberDto = memberService.getUserByNickname(user);
+	  MemberDto memberDto = memberService.getUserByUsername(user);
 	  
-	  List<PostDto> posts = postService.getPostByWriter(user);
+	  List<PostDto> posts = postService.getPostByUsername(user);
 	  
 	  MyPageDto myPageDto = new MyPageDto(memberDto,posts);
 	  
 	  return new MasterRes<>(200, "마이페이지 데이터 조회 성공", myPageDto);
-
   	
+  }
+  
+  @PutMapping("/{username}")
+  public MasterRes<MemberDto> updateMember(@PathVariable("username") String username, @RequestBody MemberDto memberDto)
+  {
+	  MemberDto updated = memberService.updateMember(username,memberDto);
+	  
+	  return new MasterRes<>(200, "회원정보 수정 성공",updated);
   }
     
 

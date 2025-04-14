@@ -16,6 +16,7 @@ public interface MemberService {
 	Member login(String username, String password);
 	void updateRefreshToken(Long memberId, String refreshToken);
 	Member findByUsername(String username);
-	MemberDto getUserByNickname(String username);
+	MemberDto getUserByUsername(String username);
+	MemberDto updateMember(String username, MemberDto memberDto);
 
 }

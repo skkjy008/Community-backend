@@ -92,13 +92,13 @@ public class MemberServiceImpl implements MemberService{
 }
 
 	@Override
-	public MemberDto getUserByNickname(String username) {
+	public MemberDto getUserByUsername(String username) {
 		
 		Member member = memberrepository.findByUsername(username);
 		
 		if(member==null)
 		{
-			throw new IllegalArgumentException("해당 회원이 존재하지 않습니다. username"+username);
+			throw new IllegalArgumentException("해당 회원이 존재하지 않습니다. username: "+username);
 		}
 		
 		 return this.convertToDto(member);
@@ -107,6 +107,29 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Member findByUsername(String username) {
 		return memberrepository.findByUsername(username);
+	}
+
+	@Override
+	public MemberDto updateMember(String nickname, MemberDto memberDto) {
+		
+		Member member = memberrepository.findByNickname(nickname);
+		
+		if(member==null)
+		{
+			throw new IllegalArgumentException("해당 회원이 존재하지 않습니다. username: "+nickname);
+		}
+		
+		member.setNickname(memberDto.getNickname());
+		member.setEmail(memberDto.getEmail());
+		
+		 if(memberDto.getPassword() != null && !memberDto.getPassword().isEmpty()) {
+		        member.setPassword(passwordEncoder.encode(memberDto.getPassword()));
+		    }
+		
+		 Member updatedMember = memberrepository.save(member);
+		 
+		 
+		return convertToDto(updatedMember);
 	}
 	
 }

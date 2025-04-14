@@ -9,5 +9,6 @@ import com.example.vueProject.entity.Member;
 public interface MemberRepository extends JpaRepository<Member, Long>{
 	int countMemberByUsername(String username);
 	Member findByUsername(String username);
+	Member findByNickname(String nickname);
 }
  

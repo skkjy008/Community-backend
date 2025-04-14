@@ -9,6 +9,8 @@ public class PostDto {
     private String title;
     private String content;
     private String writer;
+    private String username;
+    
     public Long getId() {
 		return id;
 	}
@@ -38,6 +40,12 @@ public class PostDto {
 	}
 	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	private LocalDate createdAt;
 }

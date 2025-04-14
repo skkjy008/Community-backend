@@ -12,6 +12,7 @@ public class AuthResponse {
     private String accessToken;
     private String refreshToken;
     private String nickname;
+    private String username;
     
 	public AuthResponse(int statusCode, String message, String accessToken, String refreshToken) {
         this.statusCode = statusCode;
@@ -20,12 +21,13 @@ public class AuthResponse {
         this.refreshToken = refreshToken;
     }
 	
-	public AuthResponse(int statusCode, String message, String accessToken, String refreshToken, String nickname) {
+	public AuthResponse(int statusCode, String message, String accessToken, String refreshToken, String nickname, String username) {
         this.statusCode = statusCode;
         this.message = message;
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.setNickname(nickname);
+        this.setUsername(username);
     }
     
     public int getStatusCode() {
@@ -66,6 +68,14 @@ public class AuthResponse {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 

@@ -26,6 +26,7 @@ public class PostServiceImpl implements PostService {
         dto.setTitle(post.getTitle());
         dto.setContent(post.getContent());
         dto.setWriter(post.getWriter());
+        dto.setUsername(post.getUsername());
         dto.setCreatedAt(post.getCreatedAt());
         return dto;
     }
@@ -36,6 +37,7 @@ public class PostServiceImpl implements PostService {
         post.setTitle(dto.getTitle());
         post.setContent(dto.getContent());
         post.setWriter(dto.getWriter());
+        post.setUsername(dto.getUsername());
         post.setCreatedAt(dto.getCreatedAt() != null ? dto.getCreatedAt() : LocalDate.now());
         return post;
     }
@@ -71,8 +73,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostDto> getPostByWriter(String user) {
-		List<Post> posts = postRepository.findByWriter(user);
+	public List<PostDto> getPostByUsername(String user) {
+		List<Post> posts = postRepository.findByUsername(user);
 		return posts.stream()
 				.map(post -> this.convertToDto(post))
 				.collect(Collectors.toList());

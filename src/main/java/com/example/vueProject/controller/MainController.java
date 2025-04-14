@@ -81,7 +81,7 @@ public class MainController {
 	       memberservice.updateRefreshToken(member.getId(), refreshToken);
 	       
 	       
-		  AuthResponse authResponse = new AuthResponse(2000, "로그인 성공",accessToken,refreshToken,member.getNickname());
+		  AuthResponse authResponse = new AuthResponse(2000, "로그인 성공",accessToken,refreshToken,member.getNickname(),member.getUsername());
 		  System.out.println(accessToken);
 		  System.out.println(refreshToken);
 		  return ResponseEntity.ok(authResponse);
